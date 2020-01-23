@@ -6,7 +6,7 @@
 <script>
   fetch('/goto/routing.json').then(function(res) {
     res.json().then(function (routes) {
-      var route = new URLSearchParams(window.location.search).get('link');
+      var route = window.location.hash.slice(1);
       var url = routes[route];
       if (url) {
         window.location.href = url;
