@@ -4,7 +4,7 @@
 <title>Redirecting...</title>
 <body>
 <script>
-  fetch('/goto/routing.json').then(function(res) {
+  fetch('routing.json').then(function(res) {
     res.json().then(function (routes) {
       var route = window.location.hash.slice(1);
       var url = routes[route];
