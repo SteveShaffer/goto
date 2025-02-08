@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Redirecting...</title>
+    <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-S2PN88RDLB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-S2PN88RDLB');
+  </script>
+  <title>Redirecting...</title>
+</head>
 <body>
 <script>
   fetch('routing.json').then(function(res) {
@@ -9,9 +19,22 @@
       var route = window.location.hash.slice(1);
       var url = routes[route];
       if (url) {
+        // Poor man's bit.ly
+        gtag('event', 'go_link', {
+          route,
+          destination: url
+        });
         window.location.href = url;
       } else {
-        console.error('No route defined for ' + route);
+        // Poor man's sentry
+        gtag('event', 'go_link_error', {
+          route
+        });
+        const errorText = 'No route defined for ' + route;
+        console.error(errorText);
+        const errorEl = document.createElement('span');
+        errorEl.innerText = `Error: ${errorText}`;
+        document.body.appendChild(errorEl);
       }
     });
   });
